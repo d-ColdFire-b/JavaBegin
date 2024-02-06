@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-
         String saveFileDirPath = "saves";
         File saveFileDir = new File(saveFileDirPath);
 
@@ -34,21 +33,36 @@ public class Main {
 //          Load from file
             if (answer.equalsIgnoreCase("YES")) {
 
-                fileName = isFileNameOk(scanner);
+                fileName = isFileNameOk(scanner, false);
 
-                File saveFile = new File(saveFileDirPath + "/" + fileName + ".txt");
 
-                person.printDetails(person.loadFrom(saveFile));
+                File saveFile = new File(fileName);
+                if (!saveFile.isDirectory()) {
+                    person.printDetails(person.loadFrom(saveFile));
+                } else {
+                    fileName = fileName + "/" + isFileNameOk(scanner, true);
+                    saveFile = new File(fileName);
+                    person.printDetails(person.loadFrom(saveFile));
+                }
 
 
 //          Do NOT load from file
             } else {
 
-                fileName = isFileNameOk(scanner);
+                fileName = isFileNameOk(scanner, false);
 
-                File saveFile = new File(saveFileDirPath + "/" + fileName + ".txt");
 
-                person.saveTo(saveFile, getInfo(scanner));
+                File saveFile = new File(fileName);
+
+                if (!saveFile.isDirectory()) {
+                    person.saveTo(saveFile, getInfo(scanner));
+                } else {
+                    fileName = fileName + "/" + isFileNameOk(scanner, true);
+                    saveFile = new File(fileName);
+                    person.saveTo(saveFile, getInfo(scanner));
+                }
+
+
 
 
             }
@@ -59,11 +73,15 @@ public class Main {
     }
 
 
-    public static String isFileNameOk(Scanner scanner) {
+    public static String isFileNameOk(Scanner scanner, boolean file) {
 
         String fileName;
         while (true) {
-            System.out.println("Enter file name (W/out extension):");
+            if (file) {
+                System.out.println("Enter file file name:");
+            } else {
+                System.out.println("Enter file path:");
+            }
             fileName = scanner.nextLine();
             if (!fileName.trim().isEmpty()) {
                 break;
@@ -73,19 +91,19 @@ public class Main {
         return fileName;
     }
 
-    public static Person getInfo (Scanner scanner){
+    public static Person getInfo(Scanner scanner) {
 
         boolean loop;
         String toCheck;
-        while (true){
+        while (true) {
             loop = false;
             System.out.println("Enter person's ID");
             toCheck = scanner.nextLine();
-            if (toCheck.trim().isEmpty()){
+            if (toCheck.trim().isEmpty()) {
                 System.out.println("Empty ID, try again");
                 continue;
             }
-            for (int i = 0; i < toCheck.trim().toCharArray().length ; i++) {
+            for (int i = 0; i < toCheck.trim().toCharArray().length; i++) {
                 if (!Character.isDigit(toCheck.trim().charAt(i))) {
                     System.out.println("It's not digit you bastard!");
                     loop = true;

@@ -52,6 +52,7 @@ public class Person {
 
     public static Person loadFrom(File file) throws IOException {
 
+
         try (FileInputStream stream = new FileInputStream(file)) {
             try (Scanner scanner = new Scanner(stream)) {
                 Person person = new Person(scanner.nextInt());
