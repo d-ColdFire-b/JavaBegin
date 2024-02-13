@@ -5,6 +5,7 @@ import entity.Person;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.SortedMap;
 
 public class DirectoryPersonRepository implements PersonRepository {
 
@@ -13,12 +14,13 @@ public class DirectoryPersonRepository implements PersonRepository {
 
     public DirectoryPersonRepository(File dir) {
         this.dir = dir;
-
         if (!dir.isDirectory()) {
             try {
-                dir.mkdir();
-            }
-            catch (Exception e) {
+                if (!dir.mkdir()) {
+                    throw new IllegalArgumentException();
+                }
+
+            } catch (Exception e) {
                 throw new IllegalArgumentException(e);
             }
         }
@@ -27,7 +29,7 @@ public class DirectoryPersonRepository implements PersonRepository {
 
     @Override
     public void save(Person person) throws IOException {
-        File dirId = new File(dir.getPath() + person.getId());
+        File dirId = new File(dir.getPath() + "/" + person.getId());
         person.saveTo(dirId, person);
 
     }
@@ -35,8 +37,13 @@ public class DirectoryPersonRepository implements PersonRepository {
     @Override
     public Person load(int id) throws IOException {
         Person person = new Person(id);
-        File dirId = new File(dir.getPath() + id);
-        person.loadFrom(dirId);
+        File dirId = new File(dir.getPath() + "/" + id);
+        try {
+            person.loadFrom(dirId);
+        } catch (Exception e){
+            System.out.println("No saves in repo for person Id - " + id);
+        }
+
         return person;
     }
 }

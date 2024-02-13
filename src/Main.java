@@ -1,4 +1,6 @@
 import entity.Person;
+import repository.DirectoryPersonRepository;
+import repository.PersonRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,22 +11,36 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*
         String saveFileDirPath = "saves";
         File saveFileDir = new File(saveFileDirPath);
+        PersonRepository personRepository = new DirectoryPersonRepository(saveFileDir);
 
         Person person = new Person(1);
+
+
+        personRepository.save(person);
+
+
+//      Palindrome task
+        if (false) {
+            String str1 = "asadfasfsda";
+            String str2 = "aasfcvxvcfsaa";
+            String str3 = "aasfcvvcfsaa";
+
+            System.out.println(isPalindrom(str1));
+            System.out.println(isPalindrom(str2));
+            System.out.println(isPalindrom(str3));
+        }
+
+//      countSubstring task
+        if (false){
+            String mainOne = "Is it hard too pee it from here?";
+            String findOne = "it";
+
+            System.out.println(countSubString(mainOne, findOne));
+        }
+/*
+
 
 
         if (!saveFileDir.exists()) {
@@ -139,5 +155,39 @@ public class Main {
 
         return person;
     }
+
+    public static boolean isPalindrom(String str){
+        char arr[] = str.toCharArray();
+        for (int i = 0; i < str.toCharArray().length/2; i++) {
+            if (arr[i] != arr[arr.length - 1 - i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int countSubString(String x, String y){
+        int count = 0;
+        char xArr[] = x.toCharArray();
+        char yArr[] = y.toCharArray();
+
+        for (int i = 0; i < xArr.length; i++) {
+            if (xArr[i] == yArr[0]){
+                count++;
+                for (int j = 0; j < yArr.length; j++) {
+                    if (yArr[j] != xArr[j+i]){
+                        count--;
+                        break;
+                    }
+                }
+
+            }
+        }
+
+
+
+        return count;
+    }
+
 
 }
