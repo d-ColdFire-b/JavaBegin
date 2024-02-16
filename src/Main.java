@@ -18,7 +18,7 @@ public class Main {
         Person person = new Person(1);
 
 
-        personRepository.save(person);
+        Person.printDetails(personRepository.load(1));
 
 
 //      Palindrome task

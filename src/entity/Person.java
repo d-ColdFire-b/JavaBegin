@@ -70,7 +70,7 @@ public class Person {
     }
 
 
-    public void printDetails(Person person) {
+    public static void printDetails(Person person) {
 
         System.out.println("Id = " + person.id);
         System.out.println("Name = " + person.name);

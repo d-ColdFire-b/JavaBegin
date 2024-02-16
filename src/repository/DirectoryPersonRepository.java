@@ -39,7 +39,7 @@ public class DirectoryPersonRepository implements PersonRepository {
         Person person = new Person(id);
         File dirId = new File(dir.getPath() + "/" + id);
         try {
-            person.loadFrom(dirId);
+            person = person.loadFrom(dirId);
         } catch (Exception e){
             System.out.println("No saves in repo for person Id - " + id);
         }
