@@ -5,6 +5,17 @@ import java.io.*;
 import java.util.Scanner;
 
 public class Person {
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 
     int id;
 
@@ -12,7 +23,7 @@ public class Person {
         this.id = id;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
@@ -37,35 +48,6 @@ public class Person {
 
         } else {
             this.gender = "Retard";
-        }
-    }
-
-    public static void saveTo(File file, Person person) throws IOException {
-        try (FileOutputStream stream = new FileOutputStream(file)) {
-            try (PrintWriter writer = new PrintWriter(stream)) {
-                writer.println(person.id);
-                writer.println(person.name);
-                writer.println(person.surname);
-                writer.println(person.gender);
-            }
-
-
-        }
-    }
-
-
-    public static Person loadFrom(File file) throws IOException {
-
-
-        try (FileInputStream stream = new FileInputStream(file)) {
-            try (Scanner scanner = new Scanner(stream)) {
-                Person person = new Person(scanner.nextInt());
-                scanner.nextLine();
-                person.setName(scanner.nextLine());
-                person.setSurname(scanner.nextLine());
-                person.setGender(scanner.nextLine());
-                return person;
-            }
         }
     }
 

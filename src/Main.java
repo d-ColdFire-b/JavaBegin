@@ -1,8 +1,5 @@
 import entity.Person;
-import repository.DirectoryPersonRepository;
-import repository.PersonRepository;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -11,34 +8,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-        String saveFileDirPath = "saves";
-        File saveFileDir = new File(saveFileDirPath);
-        PersonRepository personRepository = new DirectoryPersonRepository(saveFileDir);
-
-        Person person = new Person(1);
 
 
-        Person.printDetails(personRepository.load(1));
-
-
-//      Palindrome task
-        if (false) {
-            String str1 = "asadfasfsda";
-            String str2 = "aasfcvxvcfsaa";
-            String str3 = "aasfcvvcfsaa";
-
-            System.out.println(isPalindrom(str1));
-            System.out.println(isPalindrom(str2));
-            System.out.println(isPalindrom(str3));
-        }
-
-//      countSubstring task
-        if (false){
-            String mainOne = "Is it hard too pee it from here?";
-            String findOne = "it";
-
-            System.out.println(countSubString(mainOne, findOne));
-        }
 /*
 
 
