@@ -30,13 +30,7 @@ public class DirectoryPersonRepository implements Repository<Person> {
     @Override
     public void save(Person person) throws IOException {
         File dirId = new File(dir.getPath() + "/" + person.getId());
-        saveTo(dirId, person);
-
-    }
-
-
-    public static void saveTo(File file, Person person) throws IOException {
-        try (FileOutputStream stream = new FileOutputStream(file)) {
+        try (FileOutputStream stream = new FileOutputStream(dirId)) {
             try (PrintWriter writer = new PrintWriter(stream)) {
                 writer.println(person.getId());
                 writer.println(person.getName());
@@ -47,26 +41,20 @@ public class DirectoryPersonRepository implements Repository<Person> {
     }
 
 
-    public static Person loadFrom(File file) throws IOException {
-
-        try (FileInputStream stream = new FileInputStream(file)) {
-            try (Scanner scanner = new Scanner(stream)) {
-                Person person = new Person(scanner.nextInt());
-                scanner.nextLine();
-                person.setName(scanner.nextLine());
-                person.setSurname(scanner.nextLine());
-                person.setGender(scanner.nextLine());
-                return person;
-            }
-        }
-    }
-
     @Override
-    public Person load(int id) throws IOException {
-
+    public Person load(int id) {
         File dirId = new File(dir.getPath() + "/" + id);
         try {
-            return loadFrom(dirId);
+            try (FileInputStream stream = new FileInputStream(dirId)) {
+                try (Scanner scanner = new Scanner(stream)) {
+                    Person person = new Person(scanner.nextInt());
+                    scanner.nextLine();
+                    person.setName(scanner.nextLine());
+                    person.setSurname(scanner.nextLine());
+                    person.setGender(scanner.nextLine());
+                    return person;
+                }
+            }
         } catch (Exception e) {
             System.out.println("No saves in repo for person Id - " + id);
         }
@@ -75,7 +63,7 @@ public class DirectoryPersonRepository implements Repository<Person> {
     }
 
     @Override
-    public List<Person> load(List<Integer> ids) throws IOException {
+    public List<Person> load(List<Integer> ids)  {
 
         List<Person> personList = new ArrayList<>();
 
