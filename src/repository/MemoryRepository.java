@@ -12,7 +12,7 @@ public abstract class MemoryRepository<T> implements Repository<T> {
 
     @Override
     public void save(T obj) throws IOException {
-        storage.put(getId(obj),obj);
+        storage.put(getId(obj), obj);
     }
 
     @Override
@@ -26,7 +26,7 @@ public abstract class MemoryRepository<T> implements Repository<T> {
 
         List<T> tList = new ArrayList<>();
         for (Integer id : ids) {
-            if (storage.containsKey(id)){
+            if (storage.containsKey(id)) {
                 tList.add(storage.get(id));
             }
         }

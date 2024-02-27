@@ -10,7 +10,20 @@ import java.util.Scanner;
 public class DirectoryPersonRepository implements Repository<Person> {
 
 
-    File dir;
+    File dir = new File("Persons");
+
+//    public File getDir() {
+//        return dir;
+//    }
+//    =(
+//    public boolean isFileIsExits(int id) {
+//        File file = new File(dir.getPath() + "/" + id);
+//        return file.exists() && !file.isDirectory();
+//
+//    }
+
+    public DirectoryPersonRepository() {
+    }
 
     public DirectoryPersonRepository(File dir) {
         this.dir = dir;
@@ -63,7 +76,7 @@ public class DirectoryPersonRepository implements Repository<Person> {
     }
 
     @Override
-    public List<Person> load(List<Integer> ids)  {
+    public List<Person> load(List<Integer> ids) {
 
         List<Person> personList = new ArrayList<>();
 

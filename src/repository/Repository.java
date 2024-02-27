@@ -1,6 +1,5 @@
 package repository;
 
-import entity.Person;
 
 import java.io.IOException;
 import java.util.List;
