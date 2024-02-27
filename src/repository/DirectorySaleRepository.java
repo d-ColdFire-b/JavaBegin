@@ -4,6 +4,7 @@ import entity.Person;
 import entity.Sale;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -82,6 +83,15 @@ public class DirectorySaleRepository implements Repository<Sale> {
 
     @Override
     public List<Sale> load(List<Integer> ids) throws IOException {
-        return null;
+
+
+        List<Sale> saleList = new ArrayList<>();
+
+        for (Integer id : ids) {
+            saleList.add(load(id));
+        }
+
+        return saleList;
+
     }
 }
