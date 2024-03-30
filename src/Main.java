@@ -1,4 +1,5 @@
 import entity.Person;
+import repository.DirectorySaleRepository;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -8,8 +9,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-
-
+        DirectorySaleRepository directorySaleRepository = new DirectorySaleRepository();
+        directorySaleRepository.loadAllByPersonId(1);
 /*
 
 
@@ -128,7 +129,7 @@ public class Main {
     }
 
     public static boolean isPalindrom(String str){
-        char arr[] = str.toCharArray();
+        char[] arr = str.toCharArray();
         for (int i = 0; i < str.toCharArray().length/2; i++) {
             if (arr[i] != arr[arr.length - 1 - i]) {
                 return false;
@@ -139,8 +140,8 @@ public class Main {
 
     public static int countSubString(String x, String y){
         int count = 0;
-        char xArr[] = x.toCharArray();
-        char yArr[] = y.toCharArray();
+        char[] xArr = x.toCharArray();
+        char[] yArr = y.toCharArray();
 
         for (int i = 0; i < xArr.length; i++) {
             if (xArr[i] == yArr[0]){

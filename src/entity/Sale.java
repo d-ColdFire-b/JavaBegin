@@ -10,6 +10,8 @@ public class Sale implements Iterable<Product> {
     double amount;
     Person person;
 
+    Map<Product, Double> products = new TreeMap<>();
+
     public int getId() {
         return id;
     }
@@ -18,6 +20,12 @@ public class Sale implements Iterable<Product> {
         this.id = id;
     }
 
+    public Sale() {
+    }
+
+    public Sale(int id) {
+        this.id = id;
+    }
     public double getAmount() {
         return amount;
     }
@@ -34,14 +42,6 @@ public class Sale implements Iterable<Product> {
         this.person = person;
     }
 
-    public Sale() {
-    }
-
-    public Sale(int id) {
-        this.id = id;
-    }
-
-    Map<Product, Double> products = new TreeMap<>();
 
     @Override
     public Iterator<Product> iterator() {

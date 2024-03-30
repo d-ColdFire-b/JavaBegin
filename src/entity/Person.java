@@ -1,10 +1,11 @@
 package entity;
 
-import javax.sound.midi.Soundbank;
-import java.io.*;
-import java.util.Scanner;
 
 public class Person {
+
+    int id;
+    String gender, name, surname;
+
     public String getName() {
         return name;
     }
@@ -17,7 +18,6 @@ public class Person {
         return gender;
     }
 
-    int id;
 
     public void setId(int id) {
         this.id = id;
@@ -35,7 +35,6 @@ public class Person {
         this.surname = surname;
     }
 
-    String gender, name, surname;
 
     public Person(int id) {
         this.id = id;

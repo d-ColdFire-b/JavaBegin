@@ -2,7 +2,11 @@ package repository;
 
 import entity.Person;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,17 +16,18 @@ public class DirectoryPersonRepository implements Repository<Person> {
 
     File dir = new File("Persons");
 
-//    public File getDir() {
-//        return dir;
-//    }
-//    =(
-//    public boolean isFileIsExits(int id) {
-//        File file = new File(dir.getPath() + "/" + id);
-//        return file.exists() && !file.isDirectory();
-//
-//    }
 
     public DirectoryPersonRepository() {
+        if (!this.dir.isDirectory()) {
+            try {
+                if (!this.dir.mkdir()) {
+                    throw new IllegalArgumentException();
+                }
+
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
     }
 
     public DirectoryPersonRepository(File dir) {

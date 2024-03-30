@@ -6,7 +6,9 @@ import entity.Sale;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DirectorySaleRepository implements Repository<Sale> {
 
@@ -14,6 +16,16 @@ public class DirectorySaleRepository implements Repository<Sale> {
 
 
     public DirectorySaleRepository() {
+        if (!this.dir.isDirectory()) {
+            try {
+                if (!this.dir.mkdir()) {
+                    throw new IllegalArgumentException();
+                }
+
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
     }
 
     public DirectorySaleRepository(File dir) {
@@ -75,7 +87,7 @@ public class DirectorySaleRepository implements Repository<Sale> {
                 }
             }
         } catch (Exception e) {
-            System.out.println("No saves in repo for person Id - " + id);
+            System.out.println("No saves in repo for sale Id - " + id);
         }
 
         return null;
@@ -83,7 +95,6 @@ public class DirectorySaleRepository implements Repository<Sale> {
 
     @Override
     public List<Sale> load(List<Integer> ids) throws IOException {
-
 
         List<Sale> saleList = new ArrayList<>();
 
@@ -94,4 +105,31 @@ public class DirectorySaleRepository implements Repository<Sale> {
         return saleList;
 
     }
+
+    public List<Sale> loadAllByPersonId(int id) throws IOException {
+
+        List<Sale> personsSales = load(getAllIds());
+
+        return personsSales.stream()
+                .filter(x -> x.getPerson().getId() == id)
+                .collect(Collectors.toList());
+    }
+
+
+    private List<Integer> getAllIds() {
+        File[] files = dir.listFiles();
+        List<Integer> fileIds = new ArrayList<>();
+        for (File file : Objects.requireNonNull(files)) { // Objects.requireNonNull - IDEA suggestion
+            fileIds.add(Integer.parseInt(file.getName()));
+        }
+
+//        for (Integer fileId : fileIds) {
+//            System.out.println(fileId);
+//        }
+
+        return fileIds;
+
+    }
+
+
 }
