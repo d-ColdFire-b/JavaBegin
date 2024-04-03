@@ -1,16 +1,21 @@
 import entity.Person;
 import repository.DirectorySaleRepository;
 
+import javax.swing.Spring;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String nes = localDateTime.toString();
 
-        DirectorySaleRepository directorySaleRepository = new DirectorySaleRepository();
-        directorySaleRepository.loadAllByPersonId(1);
+        LocalDateTime notLocal = LocalDateTime.parse(nes);
+        System.out.println(notLocal);
+
 /*
 
 

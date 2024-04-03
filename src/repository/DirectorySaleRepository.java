@@ -4,7 +4,11 @@ import entity.Person;
 import entity.Sale;
 
 import java.io.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -48,8 +52,8 @@ public class DirectorySaleRepository implements Repository<Sale> {
         try (FileOutputStream stream = new FileOutputStream(dirId)) {
             try (PrintWriter writer = new PrintWriter(stream)) {
                 writer.println(sale.getId());
+                writer.println(sale.getTimestamp());
                 writer.println(sale.getAmount());
-
                 Person person = sale.getPerson();
                 writer.println(person.getId());
                 writer.println(person.getName());
@@ -65,8 +69,10 @@ public class DirectorySaleRepository implements Repository<Sale> {
         try {
             try (FileInputStream stream = new FileInputStream(dirId)) {
                 try (Scanner scanner = new Scanner(stream)) {
-                    Sale sale = new Sale(scanner.nextInt());
+                    Sale sale = new Sale();
+                    sale.setId(scanner.nextInt());
                     scanner.nextLine();
+                    sale.setTimestamp(LocalDateTime.parse(scanner.nextLine()));
                     sale.setAmount(scanner.nextDouble());
                     scanner.nextLine();
                     int personId = scanner.nextInt();
